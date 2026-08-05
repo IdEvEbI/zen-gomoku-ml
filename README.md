@@ -98,6 +98,24 @@ cp ../zen-gomoku/data/teacher/freestyle-v1-*.jsonl data/teacher/
 bash scripts/train_freestyle.sh
 ```
 
+## 正式 renju 训练（Backlog #4）
+
+与 freestyle **分开**训练，不要混文件：
+
+```bash
+cd ../zen-gomoku
+npm run generate:teacher-records -- --rules renju-cn-v1 --count 50 --difficulty zhu
+
+cd ../zen-gomoku-ml
+mkdir -p data/teacher
+cp ../zen-gomoku/data/teacher/renju-cn-v1-*.jsonl data/teacher/
+
+bash scripts/train_renju.sh
+# 产物：artifacts/renju-cn-v1/<UTC>/
+```
+
+冒烟（内置 sample）：`bash scripts/smoke_train_renju.sh`。
+
 ## 怎么评估模型
 
 1. **模仿准不准**：Top-1 / Top-3（`gomoku_ml.eval`）。

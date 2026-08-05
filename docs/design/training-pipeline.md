@@ -49,4 +49,7 @@ zen-gomoku AlphaZeroAgent 按规则加载
 
 `meta.json` 含 seed、超参、数据路径、样本数、Top-k、Python/torch 版本与 git revision。
 
-入口脚本：`bash scripts/train_freestyle.sh`（仅 freestyle-v1）。
+入口脚本：
+
+- freestyle：`bash scripts/train_freestyle.sh`
+- renju：`bash scripts/train_renju.sh`（**禁止**与 freestyle JSONL 混训）
