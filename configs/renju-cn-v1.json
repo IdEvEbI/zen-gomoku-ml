@@ -1,0 +1,8 @@
+{
+  "rules": "renju-cn-v1",
+  "channels": 32,
+  "lr": 0.001,
+  "batch_size": 32,
+  "epochs": 10,
+  "notes": "Train renju model only on renju-cn-v1 JSONL; never mix with freestyle."
+}

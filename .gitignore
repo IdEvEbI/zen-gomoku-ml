@@ -1,0 +1,22 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Data & artifacts (local)
+data/teacher/
+artifacts/
+*.pt
+*.onnx
+!data/sample/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# pytest / mypy
+.pytest_cache/
+.mypy_cache/
