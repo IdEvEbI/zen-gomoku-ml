@@ -5,6 +5,9 @@ __pycache__/
 venv/
 .env
 
+# Node tooling (docs format / hooks)
+node_modules/
+
 # Data & artifacts (local)
 data/teacher/
 artifacts/
