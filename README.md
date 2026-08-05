@@ -5,28 +5,39 @@
 
 对应产品仓 Issue：[#60](https://github.com/IdEvEbI/zen-gomoku/issues/60)。设计见产品仓 `docs/design/alphazero-lite.md`。
 
+## 协作方式（与产品仓对齐）
+
+本仓采用与 zen-gomoku 相同的工程约定：
+
+- **规格驱动开发（Spec-Driven Development）**：先定 `docs/` 规格与 Backlog，再写代码。说明见 [docs/development/spec-driven-development.md](docs/development/spec-driven-development.md)。
+- **分支**：`main` + `develop`；功能从 `develop` 拉 `feature/*`，PR 合回 `develop`。
+- **文档**：`docs/` kebab-case；中英文混排加空格；Prettier 统一 Markdown / JSON。
+- **提交门禁**：husky + lint-staged（文档格式）+ commitlint；CI 跑 `format:check` 与 unittest。
+- **Cursor**：`.cursor/rules/feature-workflow.mdc`（合并 PR 后切 develop、删分支、开下一 Issue）。
+
+详见 [CONTRIBUTING.md](CONTRIBUTING.md)、[docs/README.md](docs/README.md)、[issue-backlog](docs/project/issue-backlog.md)。
+
 ## 目标与非目标
 
-| 做 | 不做 |
-|----|------|
-| 读取产品仓 JSONL `GameRecord`（含 `rules`） | Vue / Pinia UI |
-| `freestyle-v1` / `renju-cn-v1` **分开**训两个策略网 | 混规则训同一模型 |
-| Top-1 / Top-3 命中老师着法 | 一上来追平唐僧 |
-| 导出 ONNX 供产品仓 R3 加载 | 完整 MLOps / 自对弈闭环（R4） |
+| 做                                            | 不做                      |
+| --------------------------------------------- | ------------------------- |
+| 读取产品仓 JSONL `GameRecord`（含 `rules`）   | Vue / Pinia UI            |
+| `freestyle-v1` / `renju-cn-v1` **分开**训模型 | 混规则训同一模型          |
+| Top-1 / Top-3 命中老师着法                    | 一上来追平唐僧            |
+| 导出 ONNX 供产品仓 R3 加载                    | 完整 MLOps / 自对弈（R4） |
 
 ## 环境
 
 - Python **3.11+**
-- 建议虚拟环境
+- Node **20+**（仅文档格式与 git hooks，不参与训练计算）
 
 ```bash
 cd zen-gomoku-ml
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+npm install
 ```
-
-CPU 即可跑通脚手架；有 GPU 时 PyTorch 会自动用。
 
 ## 棋谱从哪来
 
@@ -37,27 +48,18 @@ npm run generate:teacher-records -- --rules freestyle-v1 --count 10 --difficulty
 # 产物：data/teacher/freestyle-v1-*.jsonl
 ```
 
-拷贝到本仓，例如：
+拷贝到本仓：
 
 ```bash
 mkdir -p data/teacher
 cp ../zen-gomoku/data/teacher/freestyle-v1-*.jsonl data/teacher/
 ```
 
-JSONL：每行一个 `GameRecord`：
-
-```json
-{"version":1,"boardSize":15,"moves":[{"r":7,"c":7,"player":1},...],"rules":"freestyle-v1","status":"black_win"}
-```
-
 **禁止**把 `renju-cn-v1` 与 `freestyle-v1` 混进同一次训练。
 
 ## 快速跑通（内置小样本）
 
-仓库自带 `data/sample/freestyle-v1.sample.jsonl`（极小，仅用于冒烟）：
-
 ```bash
-# 训练几步 + 导出 checkpoint / onnx
 python -m gomoku_ml.train \
   --rules freestyle-v1 \
   --data data/sample/freestyle-v1.sample.jsonl \
@@ -65,40 +67,24 @@ python -m gomoku_ml.train \
   --batch-size 8 \
   --out artifacts/freestyle-smoke
 
-# 评测 Top-1 / Top-3
 python -m gomoku_ml.eval \
   --rules freestyle-v1 \
   --data data/sample/freestyle-v1.sample.jsonl \
   --checkpoint artifacts/freestyle-smoke/model.pt
 ```
 
-正式数据换成 `data/teacher/*.jsonl`，加大 `--epochs` 即可。禁手同理：`--rules renju-cn-v1`。
+或：`bash scripts/smoke_train.sh`。
 
-## 怎么评估模型（小白说明）
+## 怎么评估模型
 
-1. **模仿准不准**：测试集上老师下一手是否落在模型 Top-1 / Top-3（本仓 `eval`）。
-2. **实战弱不弱**（后续增强）：导出 ONNX 后在产品仓用人机对战猪八戒；或本仓加 headless 对弈脚本。
-3. **不要只看 loss**：loss 下降只说明在拟合训练集。
-
-## 目录
-
-```
-gomoku_ml/          # 数据、模型、训练、评测
-configs/            # 规则相关默认超参（可选）
-data/sample/        # 冒烟样本
-data/teacher/       # 你从产品仓拷来的棋谱（gitignore）
-artifacts/          # 训练产物（gitignore）
-scripts/            # 辅助脚本
-```
+1. **模仿准不准**：Top-1 / Top-3（`gomoku_ml.eval`）。
+2. **实战弱不弱**（后续）：对猪八戒级 Agent 胜率；或回灌产品仓人机试玩。
+3. **不要只看 loss**。
 
 ## 与产品仓的衔接
 
-| 阶段 | 仓库 | 做什么 |
-|------|------|--------|
-| R1 | zen-gomoku | 唐僧互打导出 JSONL（已完成） |
-| R2 | **本仓** | 小样本跑通 → 大数据重训 → 两份 ONNX |
-| R3 | zen-gomoku | `AlphaZeroAgent` 按规则加载 ONNX |
-
-## License
-
-与产品仓对齐时再补；脚手架阶段保留私有/团队约定即可。
+| 阶段 | 仓库       | 做什么                              |
+| ---- | ---------- | ----------------------------------- |
+| R1   | zen-gomoku | 唐僧互打导出 JSONL（已完成）        |
+| R2   | **本仓**   | 小样本跑通 → 大数据重训 → 两份 ONNX |
+| R3   | zen-gomoku | `AlphaZeroAgent` 按规则加载 ONNX    |
