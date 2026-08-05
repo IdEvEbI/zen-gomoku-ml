@@ -10,6 +10,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 SAMPLE = ROOT / "data" / "sample" / "freestyle-v1.sample.jsonl"
+RENJU_SAMPLE = ROOT / "data" / "sample" / "renju-cn-v1.sample.jsonl"
 
 
 class DatasetTests(unittest.TestCase):
@@ -19,6 +20,11 @@ class DatasetTests(unittest.TestCase):
         self.assertEqual(samples[0].planes.shape, (3, 15, 15))
         self.assertGreaterEqual(samples[0].move_index, 0)
         self.assertLess(samples[0].move_index, 225)
+
+    def test_load_sample_renju(self) -> None:
+        samples = load_jsonl_samples([RENJU_SAMPLE], rules="renju-cn-v1")
+        self.assertGreater(len(samples), 0)
+        self.assertEqual(samples[0].planes.shape, (3, 15, 15))
 
     def test_rules_mismatch_raises(self) -> None:
         with self.assertRaises(ValueError):

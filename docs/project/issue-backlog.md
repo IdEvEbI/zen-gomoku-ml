@@ -19,8 +19,8 @@
 
 | #   | 标题                                        | 描述                                                              | 对应    | 状态   |
 | --- | ------------------------------------------- | ----------------------------------------------------------------- | ------- | ------ |
-| 3   | **feat: 正式自由规则模仿训练**              | 接入产品仓大批量 `freestyle-v1` JSONL；可复现实验配置与 meta.json | R2      | 进行中 |
-| 4   | **feat: 正式禁手规则模仿训练**              | 同流水线、`renju-cn-v1` 独立模型；禁止混规则                      | R2      | 待开始 |
+| 3   | **feat: 正式自由规则模仿训练**              | 接入产品仓大批量 `freestyle-v1` JSONL；可复现实验配置与 meta.json | R2      | 已落地 |
+| 4   | **feat: 正式禁手规则模仿训练**              | 同流水线、`renju-cn-v1` 独立模型；禁止混规则                      | R2      | 进行中 |
 | 5   | **feat: 评测增强（对猪八戒级 Agent 胜率）** | headless 对弈评测脚本；与 Top-k 互补                              | R2      | 待开始 |
 | 6   | **docs: ONNX 交付约定与产品仓 R3 接口说明** | 输入输出张量、规则绑定、版本目录结构                              | R2 → R3 | 待开始 |
 
@@ -31,7 +31,16 @@
 - [x] 支持 `data/teacher/freestyle-v1*.jsonl`；`scripts/train_freestyle.sh` 可一键跑
 - [x] `npm run test` 通过；sample 或 teacher 数据可完成至少一次正式配置训练并导出 ONNX
 
-> 注：当前本地 teacher 仅少量对局；「大批量」需在产品仓加大 `--count` 后拷贝再训。管线已就绪。
+> 注：大批量棋谱在产品仓加大 `--count` 后拷贝再训。管线已就绪（GitHub #4 / PR #5）。
+
+### Backlog #4 验收标准
+
+- [x] `configs/renju-cn-v1.json` 可驱动独立训练；产物在 `artifacts/renju-cn-v1/<run_id>/`
+- [x] `scripts/train_renju.sh` 只吃 `renju-cn-v1*.jsonl`；混入 freestyle 数据会失败
+- [x] sample / teacher 至少完成一次 renju 配置训练并导出 ONNX
+- [x] `npm run test` 通过；文档说明 freestyle / renju 分训、禁止混规则
+
+> 注：大批量同样需产品仓加大 `--count` 后拷贝；本项打通独立 renju 管线。
 
 ---
 
