@@ -18,7 +18,7 @@
 | T-REQ-003 | Top-k 评测   | 测试集 Top-1 / Top-3                           | P0     | 已实现 |
 | T-REQ-004 | ONNX 导出    | 训练结束写出 `model.onnx`                      | P0     | 已实现 |
 | T-REQ-005 | 双规则隔离   | `freestyle-v1` / `renju-cn-v1` 分跑、禁止混训  | P0     | 已实现 |
-| T-REQ-006 | 对战胜率评测 | 对猪八戒级 Agent 的 headless 胜率              | P1     | 未实现 |
+| T-REQ-006 | 对战胜率评测 | 对猪八戒级 Agent 的 headless 胜率              | P1     | 已实现 |
 | T-REQ-007 | 大规模可复现 | 固定 seed、配置落盘、产物版本目录              | P1     | 已实现 |
 
 ## 3. 数据约定
