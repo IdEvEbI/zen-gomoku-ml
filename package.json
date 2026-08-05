@@ -5,7 +5,7 @@
   "description": "Gomoku imitation learning (AlphaZero-lite R2) for zen-gomoku",
   "type": "module",
   "scripts": {
-    "test": "bash -c 'PY=${VIRTUAL_ENV:+$VIRTUAL_ENV/bin/python}; PY=${PY:-python3}; \"$PY\" -m unittest discover -s gomoku_ml -p \"test_*.py\"'",
+    "test": "uv run python -m unittest discover -s gomoku_ml -p \"test_*.py\"",
     "format": "prettier --write \"docs/**/*.md\" \"*.md\" \".cursor/**/*.mdc\" \"configs/**/*.json\" \"package.json\"",
     "format:check": "prettier --check \"docs/**/*.md\" \"*.md\" \".cursor/**/*.mdc\" \"configs/**/*.json\" \"package.json\"",
     "prepare": "husky"

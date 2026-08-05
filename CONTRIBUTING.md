@@ -3,8 +3,8 @@
 ## 开发前
 
 1. Clone 本仓库。
-2. `npm install`（安装 Prettier / husky / commitlint；`prepare` 会装 git hooks）。
-3. Python：`python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt`。
+2. 安装 [uv](https://docs.astral.sh/uv/getting-started/installation/)，然后 `uv sync`（自动创建 `.venv` 并安装依赖；日常用 `uv run …`，无需手动 activate）。
+3. `npm install`（安装 Prettier / husky / commitlint；`prepare` 会装 git hooks）。
 4. 阅读 [分支策略](docs/development/branch-strategy.md)、[规格驱动](docs/development/spec-driven-development.md)。
 
 ## 开发流程

@@ -28,15 +28,22 @@
 
 ## 环境
 
-- Python **3.11+**
+- [uv](https://docs.astral.sh/uv/)（管理 Python 版本、虚拟环境与依赖；本地 / CI / 云端同一套命令）
+- Python **3.12+**（由 `uv` 按 `.python-version` 自动准备，无需手动 `venv` / conda）
 - Node **20+**（仅文档格式与 git hooks，不参与训练计算）
 
 ```bash
 cd zen-gomoku-ml
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+# 安装 uv：https://docs.astral.sh/uv/getting-started/installation/
+uv sync
 npm install
+```
+
+日常命令用 `uv run`，**不必**先 `source .venv/bin/activate`（Cursor / 终端均适用）：
+
+```bash
+uv run python -m gomoku_ml.train --help
+npm run test   # 内部已走 uv run
 ```
 
 ## 棋谱从哪来
@@ -60,14 +67,14 @@ cp ../zen-gomoku/data/teacher/freestyle-v1-*.jsonl data/teacher/
 ## 快速跑通（内置小样本）
 
 ```bash
-python -m gomoku_ml.train \
+uv run python -m gomoku_ml.train \
   --rules freestyle-v1 \
   --data data/sample/freestyle-v1.sample.jsonl \
   --epochs 3 \
   --batch-size 8 \
   --out artifacts/freestyle-smoke
 
-python -m gomoku_ml.eval \
+uv run python -m gomoku_ml.eval \
   --rules freestyle-v1 \
   --data data/sample/freestyle-v1.sample.jsonl \
   --checkpoint artifacts/freestyle-smoke/model.pt

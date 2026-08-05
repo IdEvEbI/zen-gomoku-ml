@@ -11,5 +11,6 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "prettier.prettierPath": "./node_modules/prettier"
+  "prettier.prettierPath": "./node_modules/prettier",
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
 }
