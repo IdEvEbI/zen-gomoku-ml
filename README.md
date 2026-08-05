@@ -116,10 +116,23 @@ bash scripts/train_renju.sh
 
 冒烟（内置 sample）：`bash scripts/smoke_train_renju.sh`。
 
+## 对猪八戒胜率（Backlog #5）
+
+先有 freestyle `model.pt`（见上正式训练），再：
+
+```bash
+# 默认用最新 artifacts/freestyle-v1/*/model.pt，对局数可用 GAMES=
+GAMES=50 bash scripts/eval_vs_zhu.sh
+# 或指定
+bash scripts/eval_vs_zhu.sh artifacts/freestyle-v1/<run_id>/model.pt
+```
+
+报告写入同目录 `vs_zhu.json`。对手为产品仓猪八戒启发逻辑的 Python 移植（freestyle）。
+
 ## 怎么评估模型
 
 1. **模仿准不准**：Top-1 / Top-3（`gomoku_ml.eval`）。
-2. **实战弱不弱**（后续）：对猪八戒级 Agent 胜率；或回灌产品仓人机试玩。
+2. **实战弱不弱**：对猪八戒级 Agent 胜率（`eval_vs_zhu`）；或回灌产品仓人机试玩。
 3. **不要只看 loss**。
 
 ## 与产品仓的衔接
