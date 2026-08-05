@@ -82,6 +82,22 @@ uv run python -m gomoku_ml.eval \
 
 或：`bash scripts/smoke_train.sh`。
 
+## 正式 freestyle 训练（Backlog #3）
+
+```bash
+# 1) 产品仓生成棋谱（按需加大 --count）
+cd ../zen-gomoku
+npm run generate:teacher-records -- --rules freestyle-v1 --count 50 --difficulty zhu
+
+# 2) 拷贝到本仓（data/teacher 已 gitignore）
+cd ../zen-gomoku-ml
+mkdir -p data/teacher
+cp ../zen-gomoku/data/teacher/freestyle-v1-*.jsonl data/teacher/
+
+# 3) 按配置训练（产物：artifacts/freestyle-v1/<UTC>/）
+bash scripts/train_freestyle.sh
+```
+
 ## 怎么评估模型
 
 1. **模仿准不准**：Top-1 / Top-3（`gomoku_ml.eval`）。

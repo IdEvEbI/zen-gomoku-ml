@@ -35,3 +35,18 @@ zen-gomoku AlphaZeroAgent 按规则加载
 ## 5. 规则隔离
 
 一次训练 run 只接受一种 `rules`；数据中出现另一种直接报错。
+
+## 6. 实验产物（可复现）
+
+正式训练（Backlog #3）约定：
+
+| 项       | 约定                                                          |
+| -------- | ------------------------------------------------------------- |
+| 配置     | `configs/<rules>.json`；CLI 可覆盖                            |
+| 数据     | `data/teacher/<rules>-*.jsonl`（从产品仓拷贝，勿提交大文件）  |
+| 产物目录 | `artifacts/<rules>/<UTC 时间戳>/`                             |
+| 落盘     | `model.pt`、`model.onnx`、`meta.json`、`config.snapshot.json` |
+
+`meta.json` 含 seed、超参、数据路径、样本数、Top-k、Python/torch 版本与 git revision。
+
+入口脚本：`bash scripts/train_freestyle.sh`（仅 freestyle-v1）。

@@ -43,5 +43,5 @@ def export_onnx(
         input_names=["planes"],
         output_names=["logits"],
         dynamic_axes={"planes": {0: "batch"}, "logits": {0: "batch"}},
-        opset_version=17,
+        opset_version=18,
     )
