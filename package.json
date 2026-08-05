@@ -23,6 +23,7 @@
     "@commitlint/config-conventional": "^19.6.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
-    "prettier": "^3.4.2"
+    "prettier": "^3.4.2",
+    "prettier-plugin-lint-md": "^1.0.1"
   }
 }

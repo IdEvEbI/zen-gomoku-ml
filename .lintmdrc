@@ -1,0 +1,6 @@
+{
+  "space-around-alphabet": true,
+  "space-around-number": true,
+  "no-half-width-punctuation": false,
+  "no-special-characters": false
+}
