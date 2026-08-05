@@ -4,5 +4,7 @@
   "lr": 0.001,
   "batch_size": 32,
   "epochs": 10,
-  "notes": "Default hyperparams for freestyle imitation; override via CLI flags."
+  "val_ratio": 0.2,
+  "seed": 42,
+  "notes": "Default hyperparams for freestyle imitation; CLI flags override this file."
 }

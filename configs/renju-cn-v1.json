@@ -4,5 +4,7 @@
   "lr": 0.001,
   "batch_size": 32,
   "epochs": 10,
-  "notes": "Train renju model only on renju-cn-v1 JSONL; never mix with freestyle."
+  "val_ratio": 0.2,
+  "seed": 42,
+  "notes": "Default hyperparams for renju imitation; do not mix with freestyle data."
 }

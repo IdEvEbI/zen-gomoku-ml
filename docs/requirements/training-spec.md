@@ -19,16 +19,17 @@
 | T-REQ-004 | ONNX 导出    | 训练结束写出 `model.onnx`                      | P0     | 已实现 |
 | T-REQ-005 | 双规则隔离   | `freestyle-v1` / `renju-cn-v1` 分跑、禁止混训  | P0     | 已实现 |
 | T-REQ-006 | 对战胜率评测 | 对猪八戒级 Agent 的 headless 胜率              | P1     | 未实现 |
-| T-REQ-007 | 大规模可复现 | 固定 seed、配置落盘、产物版本目录              | P1     | 部分   |
+| T-REQ-007 | 大规模可复现 | 固定 seed、配置落盘、产物版本目录              | P1     | 已实现 |
 
 ## 3. 数据约定
 
 - 来源：产品仓 `npm run generate:teacher-records`
 - 格式：每行一个 JSON；字段含 `version`、`boardSize`、`moves`、`rules`、`status`
 - 样本：每个老师着法前局面 → 着法下标 `row * 15 + col`
+- 正式训练：拷贝到本仓 `data/teacher/`（gitignore）；用 `configs/<rules>.json` + `artifacts/<rules>/<run_id>/`
 
 ## 4. 验收（脚手架）
 
-- [x] sample JSONL 可 `python -m gomoku_ml.train` 跑通并导出 onnx
-- [x] `python -m unittest` 通过
-- [ ] 协作约定（develop / docs / husky）与产品仓对齐（本轮迁移）
+- [x] sample JSONL 可 `uv run python -m gomoku_ml.train` 跑通并导出 onnx
+- [x] `npm run test`（unittest）通过
+- [x] 协作约定（develop / docs / husky）与产品仓对齐
