@@ -104,8 +104,8 @@ GAMES=40 bash scripts/eval_vs_zhu.sh
 决策：
 
 - 增强+加宽 **有用**（胜率进入双位数）→ 可再小步试更深网络或轻微加同质数据。
-- 距可玩（>30–40%）仍远 → **不要**指望再堆几千局模仿就上线；并行规划产品侧 **Policy + 浅层搜索**，ONNX 标实验级。
-- 若下一轮结构改动后仍平台期（例如 <15%）→ 停止纯模仿冲胜率，转搜索 / R4。
+- 距可玩（>30–40%）仍远 → **不要**指望再堆几千局模仿就上线；下一步见 Backlog **§8**（Policy 先验 + Minimax/αβ），ONNX 标实验级。
+- 若 §8 后仍平台期 → 转 R4 自对弈（Policy+Value+MCTS），而非继续只加 JSONL。
 
 ### 7.4 口径
 
@@ -114,3 +114,12 @@ GAMES=40 bash scripts/eval_vs_zhu.sh
 | R2 管线     | Top-k + 对猪八戒可量化；不要求追平唐僧                |
 | 应用 / 可玩 | 对猪八戒稳定显著高于随机崩盘（目标 >30–40% 再谈体验） |
 | R3 接入     | 可加载 ONNX；实力不足时 UI 标实验级即可               |
+
+## 8. 跨仓中期路线（摘要）
+
+详见 [teacher-distill-roadmap.md](teacher-distill-roadmap.md)。
+
+1. **上游**唐僧威胁搜索人机 OK（[tang-seng-strength](https://github.com/IdEvEbI/zen-gomoku/blob/develop/docs/design/tang-seng-strength.md)）。
+2. **本仓 §8**：Policy + αβ（现有弱模型也可先验证「搜索在外」）。
+3. **本仓 §9**：强唐僧教师蒸馏（先小规模，再租机放大）。
+4. **本仓 §10 / R4**：自对弈 MCTS；推理保持先验 + 搜索。
