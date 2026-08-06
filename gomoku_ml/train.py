@@ -15,6 +15,7 @@ from torch.utils.data import DataLoader
 from .dataset import (
     PositionDataset,
     RuleId,
+    augment_samples_d4,
     load_jsonl_samples,
     train_val_split,
 )
@@ -67,6 +68,14 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--channels", type=int, default=int(cfg.get("channels", 32))
     )
+    # freestyle: config may enable 8-fold aug; renju should stay off (asymmetric).
+    default_aug = bool(cfg.get("augment", False))
+    p.add_argument(
+        "--augment",
+        action=argparse.BooleanOptionalAction,
+        default=default_aug,
+        help="8-fold rotation/mirror augment on train split (freestyle only)",
+    )
     p.add_argument(
         "--out",
         type=str,
@@ -76,6 +85,8 @@ def parse_args() -> argparse.Namespace:
     args = p.parse_args()
     if not args.rules:
         p.error("--rules is required (pass CLI or set rules in --config)")
+    if args.augment and args.rules != "freestyle-v1":
+        p.error("--augment is only supported for freestyle-v1 (renju is asymmetric)")
     return args
 
 
@@ -98,9 +109,14 @@ def main() -> None:
     train_s, val_s = train_val_split(
         samples, val_ratio=args.val_ratio, seed=args.seed
     )
+    raw_train_n = len(train_s)
+    if args.augment:
+        train_s = augment_samples_d4(train_s)
     print(
         f"rules={rules} samples={len(samples)} "
-        f"train={len(train_s)} val={len(val_s)}"
+        f"train={len(train_s)} val={len(val_s)} "
+        f"augment={args.augment}"
+        + (f" (raw_train={raw_train_n})" if args.augment else "")
     )
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -162,6 +178,8 @@ def main() -> None:
             "val_ratio": args.val_ratio,
             "seed": args.seed,
             "channels": args.channels,
+            "augment": args.augment,
+            "raw_train_samples": raw_train_n,
         },
         samples=len(samples),
         train_n=len(train_s),

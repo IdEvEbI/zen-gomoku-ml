@@ -137,3 +137,52 @@ def train_val_split(
         train = list(samples)
         val = []
     return train, val
+
+
+def _transform_rc(
+    row: int, col: int, *, k: int, flip: bool, n: int = BOARD_SIZE
+) -> tuple[int, int]:
+    """Map (row, col) under optional horizontal flip then k×90° CCW (np.rot90)."""
+    r, c = row, col
+    if flip:
+        c = n - 1 - c
+    for _ in range(k % 4):
+        r, c = n - 1 - c, r
+    return r, c
+
+
+def transform_planes(
+    planes: np.ndarray, *, k: int, flip: bool
+) -> np.ndarray:
+    """Apply D4 transform to (C, H, W) planes; matches `_transform_rc`."""
+    out = planes
+    if flip:
+        out = np.flip(out, axis=2)
+    if k % 4:
+        out = np.rot90(out, k=k % 4, axes=(1, 2))
+    return np.ascontiguousarray(out)
+
+
+def augment_sample_d4(sample: Sample) -> list[Sample]:
+    """Eight dihedral transforms (identity included). For freestyle only."""
+    r0, c0 = index_to_move(sample.move_index)
+    out: list[Sample] = []
+    for flip in (False, True):
+        for k in range(4):
+            planes = transform_planes(sample.planes, k=k, flip=flip)
+            r, c = _transform_rc(r0, c0, k=k, flip=flip)
+            out.append(
+                Sample(
+                    planes=planes,
+                    move_index=move_to_index(r, c),
+                    rules=sample.rules,
+                )
+            )
+    return out
+
+
+def augment_samples_d4(samples: Sequence[Sample]) -> list[Sample]:
+    expanded: list[Sample] = []
+    for s in samples:
+        expanded.extend(augment_sample_d4(s))
+    return expanded
