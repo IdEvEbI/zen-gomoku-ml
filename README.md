@@ -135,6 +135,8 @@ bash scripts/eval_vs_zhu.sh artifacts/freestyle-v1/<run_id>/model.pt
 2. **实战弱不弱**：对猪八戒级 Agent 胜率（`eval_vs_zhu`）；或回灌产品仓人机试玩。
 3. **不要只看 loss**。
 
+当前纯模仿对猪八戒约个位数胜率，**不能当可玩人机**。提升阶梯、已跑结论与下一步（增强 + 加宽，Backlog #7）见 [training-pipeline.md §7](docs/design/training-pipeline.md) 与 [issue-backlog](docs/project/issue-backlog.md)。
+
 ## 与产品仓的衔接
 
 | 阶段 | 仓库       | 做什么                              |

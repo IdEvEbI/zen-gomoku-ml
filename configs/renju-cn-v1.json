@@ -6,5 +6,6 @@
   "epochs": 10,
   "val_ratio": 0.2,
   "seed": 42,
-  "notes": "Default hyperparams for renju imitation; do not mix with freestyle data."
+  "augment": false,
+  "notes": "Default hyperparams for renju imitation; do not mix with freestyle data. Do not enable augment (forbidden)."
 }

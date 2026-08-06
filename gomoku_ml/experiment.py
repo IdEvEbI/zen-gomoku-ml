@@ -70,6 +70,8 @@ def build_meta(
             "val_ratio": args["val_ratio"],
             "seed": args["seed"],
             "channels": args["channels"],
+            "augment": bool(args.get("augment", False)),
+            "raw_train_samples": args.get("raw_train_samples"),
         },
         "samples": samples,
         "train_samples": train_n,

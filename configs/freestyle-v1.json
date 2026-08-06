@@ -6,5 +6,6 @@
   "epochs": 10,
   "val_ratio": 0.2,
   "seed": 42,
-  "notes": "Default hyperparams for freestyle imitation; CLI flags override this file."
+  "augment": false,
+  "notes": "Default freestyle imitation; CLI flags override. Use freestyle-v1-aug64.json for Backlog #7."
 }

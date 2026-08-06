@@ -6,20 +6,22 @@
 
 ## 1. 范围
 
-- **做**：从产品仓 JSONL 棋谱做监督学习；按规则分训；Top-1/Top-3 评测；导出 ONNX。
-- **不做**：产品 UI、混规则训练、本阶段自对弈闭环。
+- **做**：从产品仓 JSONL 棋谱做监督学习；按规则分训；Top-1/Top-3 与对猪八戒胜率评测；导出 ONNX；freestyle 对称增强与可配置加宽网络（Backlog #7）。
+- **不做**：产品 UI、混规则训练、本阶段自对弈闭环；**不承诺**纯模仿达到可玩人机强度（见 [training-pipeline §7](../design/training-pipeline.md)）。
 
 ## 2. 功能需求
 
-| 编号      | 功能         | 描述                                           | 优先级 | 状态   |
-| --------- | ------------ | ---------------------------------------------- | ------ | ------ |
-| T-REQ-001 | 加载老师棋谱 | 读取 JSONL `GameRecord`；校验 `rules` 一致     | P0     | 已实现 |
-| T-REQ-002 | 模仿训练     | PolicyNet + cross-entropy；可配置 epochs/batch | P0     | 已实现 |
-| T-REQ-003 | Top-k 评测   | 测试集 Top-1 / Top-3                           | P0     | 已实现 |
-| T-REQ-004 | ONNX 导出    | 训练结束写出 `model.onnx`                      | P0     | 已实现 |
-| T-REQ-005 | 双规则隔离   | `freestyle-v1` / `renju-cn-v1` 分跑、禁止混训  | P0     | 已实现 |
-| T-REQ-006 | 对战胜率评测 | 对猪八戒级 Agent 的 headless 胜率              | P1     | 已实现 |
-| T-REQ-007 | 大规模可复现 | 固定 seed、配置落盘、产物版本目录              | P1     | 已实现 |
+| 编号      | 功能         | 描述                                                    | 优先级 | 状态   |
+| --------- | ------------ | ------------------------------------------------------- | ------ | ------ |
+| T-REQ-001 | 加载老师棋谱 | 读取 JSONL `GameRecord`；校验 `rules` 一致              | P0     | 已实现 |
+| T-REQ-002 | 模仿训练     | PolicyNet + cross-entropy；可配置 epochs/batch          | P0     | 已实现 |
+| T-REQ-003 | Top-k 评测   | 测试集 Top-1 / Top-3                                    | P0     | 已实现 |
+| T-REQ-004 | ONNX 导出    | 训练结束写出 `model.onnx`                               | P0     | 已实现 |
+| T-REQ-005 | 双规则隔离   | `freestyle-v1` / `renju-cn-v1` 分跑、禁止混训           | P0     | 已实现 |
+| T-REQ-006 | 对战胜率评测 | 对猪八戒级 Agent 的 headless 胜率                       | P1     | 已实现 |
+| T-REQ-007 | 大规模可复现 | 固定 seed、配置落盘、产物版本目录                       | P1     | 已实现 |
+| T-REQ-008 | 对称增强     | freestyle 8 向旋转/镜像；可开关；renju 默认关           | P1     | 已实现 |
+| T-REQ-009 | 加宽网络     | `channels` 可配（如 32/64）；checkpoint / ONNX 一致可读 | P1     | 已实现 |
 
 ## 3. 数据约定
 

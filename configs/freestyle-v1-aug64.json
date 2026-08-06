@@ -1,0 +1,11 @@
+{
+  "rules": "freestyle-v1",
+  "channels": 64,
+  "lr": 0.001,
+  "batch_size": 32,
+  "epochs": 30,
+  "val_ratio": 0.2,
+  "seed": 42,
+  "augment": true,
+  "notes": "Backlog #7: 8-fold aug + channels 64; use a single tang JSONL batch."
+}
