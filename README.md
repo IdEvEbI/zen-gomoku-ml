@@ -144,3 +144,5 @@ bash scripts/eval_vs_zhu.sh artifacts/freestyle-v1/<run_id>/model.pt
 | R1   | zen-gomoku | 唐僧互打导出 JSONL（已完成）        |
 | R2   | **本仓**   | 小样本跑通 → 大数据重训 → 两份 ONNX |
 | R3   | zen-gomoku | `AlphaZeroAgent` 按规则加载 ONNX    |
+
+ONNX 输入输出、规则绑定与目录约定（产品仓 R3 真源）：[docs/design/onnx-delivery.md](docs/design/onnx-delivery.md)。

@@ -14,6 +14,8 @@ gomoku_ml.eval Top-1 / Top-3
 zen-gomoku AlphaZeroAgent 按规则加载
 ```
 
+R3 张量 / 目录 / 加载约定见 **[onnx-delivery.md](onnx-delivery.md)**（契约 `onnx-policy-v1`）。
+
 ## 2. 特征
 
 - Channel 0：黑子

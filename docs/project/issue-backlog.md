@@ -22,7 +22,7 @@
 | 3   | **feat: 正式自由规则模仿训练**               | 接入产品仓大批量 `freestyle-v1` JSONL；可复现实验配置与 meta.json | R2      | 已落地 |
 | 4   | **feat: 正式禁手规则模仿训练**               | 同流水线、`renju-cn-v1` 独立模型；禁止混规则                      | R2      | 已落地 |
 | 5   | **feat: 评测增强（对猪八戒级 Agent 胜率）**  | headless 对弈评测脚本；与 Top-k 互补                              | R2      | 已落地 |
-| 6   | **docs: ONNX 交付约定与产品仓 R3 接口说明**  | 输入输出张量、规则绑定、版本目录结构                              | R2 → R3 | 待开始 |
+| 6   | **docs: ONNX 交付约定与产品仓 R3 接口说明**  | 输入输出张量、规则绑定、版本目录结构                              | R2 → R3 | 已落地 |
 | 7   | **feat: freestyle 增强与加宽（冲对局胜率）** | 8 向对称增强 + `channels` 64；现有 1000 局对照，勿先堆更大 JSONL  | R2      | 已落地 |
 
 ### Backlog #3 验收标准
@@ -55,11 +55,11 @@
 
 ### Backlog #6 验收标准
 
-- [ ] 文档写清 ONNX 输入（`planes` 3×15×15）/ 输出（225 logits）、规则与产物目录绑定
-- [ ] 产品仓 R3 加载约定（按 `rules` 选模型、版本目录）可被产品仓直接引用
-- [ ] 与 `training-pipeline` / README 交叉链接，无规格漂移
+- [x] 文档写清 ONNX 输入（`planes` 3×15×15）/ 输出（225 logits）、规则与产物目录绑定
+- [x] 产品仓 R3 加载约定（按 `rules` 选模型、版本目录）可被产品仓直接引用
+- [x] 与 `training-pipeline` / README 交叉链接，无规格漂移
 
-> 注：可与 §7 **并行**；ONNX 约定不依赖高胜率。实力不足时，产品侧文案应标为实验级 AI。
+> 真源：[onnx-delivery.md](../design/onnx-delivery.md)。可与实力提升并行；ONNX 约定不依赖高胜率。实力不足时，产品侧文案应标为实验级 AI。
 
 ### Backlog #7 验收标准
 
