@@ -29,7 +29,8 @@ docs/
 ├── requirements/
 │   └── training-spec.md
 └── design/
-    └── training-pipeline.md
+    ├── training-pipeline.md
+    └── onnx-delivery.md
 ```
 
 ## 开发文档
@@ -50,9 +51,10 @@ docs/
 
 ## 需求与设计
 
-| 文档                                                | 说明               |
-| --------------------------------------------------- | ------------------ |
-| [training-spec.md](requirements/training-spec.md)   | 训练仓功能规格     |
-| [training-pipeline.md](design/training-pipeline.md) | 数据与训练管线设计 |
+| 文档                                                | 说明                |
+| --------------------------------------------------- | ------------------- |
+| [training-spec.md](requirements/training-spec.md)   | 训练仓功能规格      |
+| [training-pipeline.md](design/training-pipeline.md) | 数据与训练管线设计  |
+| [onnx-delivery.md](design/onnx-delivery.md)         | ONNX 交付与 R3 接口 |
 
 与产品仓 [zen-gomoku](https://github.com/IdEvEbI/zen-gomoku) 的 `docs/design/alphazero-lite.md` 互补：产品仓定路线与对弈规则，本仓定训练实现。
